@@ -1,9 +1,45 @@
 ﻿@page "/"
+@using Kupri4.KanbanDemo.Data
+@using Kupri4.KanbanDemo.Models
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var column in Board.Columns)
+        {
+            <div class="col m4">
+                <div class="column">
+                    <div class="column__title">
+                        @column.Title
+                    </div>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+                    <div class="column__cards">
+                        @if (column.Cards != null && column.Cards.Count != 0)
+                        {
+                            @foreach (var card in column.Cards)
+                            {
+                                <div class="card">
+                                    <p class="card__title">
+                                        @card.Title
+                                    </p>
+                                    <div>
+                                        <p class="card__descr">
+                                            @card.Description
+                                        </p>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code{
+    Board Board => BoardRepository.Board;
+}
+
