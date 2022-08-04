@@ -22,20 +22,6 @@ main {
 }
 
 
-@media (max-width: 640.98px) {
-    .top-row:not(.auth) {
-        display: none;
-    }
-
-    .top-row.auth {
-        justify-content: space-between;
-    }
-
-    .top-row .top-row__title, .top-row .btn-link {
-        margin-left: 0;
-    }
-}
-
 @media (min-width: 641px) {
     .page {
         flex-direction: row;
@@ -46,12 +32,6 @@ main {
         height: 100vh;
         position: sticky;
         top: 0;
-    }
-
-    .top-row {
-        position: sticky;
-        top: 0;
-        z-index: 1;
     }
 
     .top-row, article {

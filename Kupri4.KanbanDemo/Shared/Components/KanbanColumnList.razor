@@ -1,0 +1,36 @@
+﻿@for (var i = 0; i < Columns.Count; i++)
+{
+    Column currentColumn = Columns[i];
+
+    <div class="col-sm-6 col-md-4">
+        <div class="column">
+
+            <div class="column__title">
+                @currentColumn.Title
+            </div>
+
+            <div class="column__cards list-group"
+             id="column_@i"
+             dropzone="move"
+             ondrop="@(() => OnDrop(currentColumn))"
+             ondragover="event.preventDefault();">
+                <KanbanCardList Cards="@currentColumn.Cards" />
+            </div>
+
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public List<Column> Columns { get; set; } = new();
+
+    //информация о столбце, в который перемещаяется карточка с задачей
+    public Column InsetInColumn { get; set; } = new();
+
+    public void OnDrop(Column column)
+    {
+        InsetInColumn = column;
+    }
+
+}

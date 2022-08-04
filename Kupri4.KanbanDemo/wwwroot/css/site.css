@@ -66,6 +66,7 @@ a, .btn-link {
 .column {
     background-color: #EBECF0;
     padding: 10px 20px;
+    margin-bottom: 30px;
 }
 
 .list-group-item{
@@ -91,6 +92,7 @@ body {
     background-color: rgba(200,235,251, 0.4);
     border: 1px solid silver;
 }
+
 .sortable-handle {
     cursor: move;
     cursor: -webkit-grabbing;

@@ -2,49 +2,12 @@
 @using Kupri4.KanbanDemo.Data
 @using Kupri4.KanbanDemo.Models
 
+
 <PageTitle>Index</PageTitle>
 
 <div class="container-fluid">
     <div class="row">
-        @for (var i = 0; i < Board.Columns.Count; i++)
-        {
-            Column column = @Board.Columns[i]; 
-            <div class="col">
-                
-                <div class="column">
-                    <div class="column__title">
-                        @column.Title
-                    </div>
-
-                    <div class="column__cards list-group" 
-                    id="column_@i" 
-                    dropzone="move" 
-                    ondrop="@(() => OnDrop(column))"
-                    ondragover="event.preventDefault();">
-                        @if (column.Cards != null && column.Cards.Count != 0)
-                        {
-                            @foreach (var card in Board.Columns[i].Cards)
-                            {
-                                
-                                <div class="card list-group-item" ondragend="@(() => OnDragEnd(card))" >
-                                    <p class="card-header fw-bold">
-                                        @card.Title
-                                    </p>
-                                    <div>
-                                        <div class="card-body">
-                                            <p class="card-text">
-                                                @card.Description
-                                            </p>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            }
-                        }
-                    </div>
-                </div>
-            </div>
-        }
+        <KanbanColumnList Columns="Board.Columns"/> 
     </div>
 </div>
 
@@ -52,30 +15,12 @@
     [Inject]
     protected IJSRuntime? JSRuntime { get; set; }
 
-    [Parameter]
-    public string columnId { get; set; } = "column";
-
-    //информация о перетаскиваемой карточке с задачей
-    public Card DraggableCard { get; set; } = null!;
-
-    //информация о столбце, в который перемещаяется карточка с задачей
-    public Column InsetInColumn { get; set; } = null!;
-
-    Board Board => BoardRepository.Board;
+    Board Board = BoardRepository.Board;
 
     protected override void OnAfterRender(bool firstRender)
     {
         JSRuntime?.InvokeVoidAsync("onBlazorReady");
     }
 
-    public void OnDrop(Column column)
-    {
-        InsetInColumn = column;
-    }
-
-    public void OnDragEnd(Card card)
-    {
-        DraggableCard = card;
-    }
 }
 

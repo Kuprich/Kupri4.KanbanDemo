@@ -1,0 +1,13 @@
+﻿@if (Cards != null && Cards.Count != 0)
+{
+    @foreach (var card in Cards)
+    {
+        <KanbanCard Card="@card"/>
+    }
+}
+@code {
+
+    [Parameter]
+    public List<Card> Cards { get; set; } = new();
+
+}

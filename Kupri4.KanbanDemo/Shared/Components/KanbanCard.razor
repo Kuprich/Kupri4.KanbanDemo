@@ -1,0 +1,26 @@
+﻿<div class="card list-group-item" ondragend="@(() => OnDragEnd(Card))">
+    <p class="card-header fw-bold">
+        @Card.Title
+    </p>
+    <div>
+        <div class="card-body">
+            <p class="card-text">
+                @Card.Description
+            </p>
+        </div>
+
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Card Card { get; set; } = new();
+
+    //информация о перетаскиваемой карточке с задачей
+    public Card DraggableCard { get; set; } = new();
+
+    public void OnDragEnd(Card card)
+    {
+        DraggableCard = card;
+    }
+}
