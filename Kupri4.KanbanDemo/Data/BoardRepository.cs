@@ -1,4 +1,5 @@
 ﻿using Kupri4.KanbanDemo.Models;
+using System.Drawing;
 
 namespace Kupri4.KanbanDemo.Data;
 
@@ -14,23 +15,25 @@ public static class BoardRepository
             .Select(i => new Card()
             { 
                 Title = $"Title{i}", 
-                Description = $"Description{i}" 
+                Description = $"Lorem ipsum dolor sit amet{i}" 
             })
             .ToList();
-
         List<Card> CardsList2 = Enumerable.Range(1, 5)
             .Select(i => new Card()
             {
                 Title = $"Title{i+10}",
-                Description = $"Description{i+10}"
+                Description = $"Excepteur sint occaecat cupidatat{i+10}"
             })
             .ToList();
 
-        List<Column> columns = new List<Column>()
+        List<Card> CardList3 = new()
+        { new Card() { Title = "example task", Description = "Completed Task 2000" } };
+
+        List<Column> columns = new()
         {
             new Column() { Title = "Open", Cards = CardsList1},
             new Column() { Title = "In Progress", Cards = CardsList2},
-            new Column() { Title = "Completed", Cards = new List<Card>()},
+            new Column() { Title = "Completed", Cards = CardList3},
         };
 
         

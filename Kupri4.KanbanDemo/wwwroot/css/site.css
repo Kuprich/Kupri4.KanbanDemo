@@ -62,3 +62,32 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+.column {
+    background-color: #EBECF0;
+    padding: 10px 20px;
+}
+
+.list-group-item{
+    padding: 0;
+}
+
+.column .column__title {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 20px;
+    font-weight: 700
+}
+
+.column .card{
+    margin: 10px 0;
+}
+
+body {
+    background: linear-gradient(90deg, #aea4e3, #d3ffe8);
+}
+
+.blue-background-class {
+    background-color: rgba(200,235,251, 0.4);
+    border: 1px solid silver;
+}

@@ -4,30 +4,35 @@
 
 <PageTitle>Index</PageTitle>
 
-
 <div class="container-fluid">
     <div class="row">
-        @foreach (var column in Board.Columns)
+        @for (var i = 0; i < Board.Columns.Count; i++)
         {
-            <div class="col m4">
+            
+            <div class="col">
+                
                 <div class="column">
                     <div class="column__title">
-                        @column.Title
+                        @Board.Columns[i].Title
                     </div>
 
-                    <div class="column__cards">
-                        @if (column.Cards != null && column.Cards.Count != 0)
+                    <div class="column__cards list-group" id="column_@i">
+                        @if (Board.Columns[i].Cards != null && Board.Columns[i].Cards.Count != 0)
                         {
-                            @foreach (var card in column.Cards)
+                            @foreach (var card in Board.Columns[i].Cards)
                             {
-                                <div class="card">
-                                    <p class="card__title">
+                                
+                                <div class="card list-group-item" >
+                                    <p class="card-header fw-bold">
                                         @card.Title
                                     </p>
                                     <div>
-                                        <p class="card__descr">
-                                            @card.Description
-                                        </p>
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                @card.Description
+                                            </p>
+                                        </div>
+
                                     </div>
                                 </div>
                             }
@@ -39,7 +44,18 @@
     </div>
 </div>
 
-@code{
+@code {
+    [Inject]
+    protected IJSRuntime? JSRuntime { get; set; }
+
+    [Parameter]
+    public string columnId { get; set; } = "column";
+
     Board Board => BoardRepository.Board;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        JSRuntime?.InvokeVoidAsync("onBlazorReady");
+    }
 }
 
