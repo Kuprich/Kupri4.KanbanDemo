@@ -8,21 +8,25 @@
     <div class="row">
         @for (var i = 0; i < Board.Columns.Count; i++)
         {
-            
+            Column column = @Board.Columns[i]; 
             <div class="col">
                 
                 <div class="column">
                     <div class="column__title">
-                        @Board.Columns[i].Title
+                        @column.Title
                     </div>
 
-                    <div class="column__cards list-group" id="column_@i">
-                        @if (Board.Columns[i].Cards != null && Board.Columns[i].Cards.Count != 0)
+                    <div class="column__cards list-group" 
+                    id="column_@i" 
+                    dropzone="move" 
+                    ondrop="@(() => OnDrop(column))"
+                    ondragover="event.preventDefault();">
+                        @if (column.Cards != null && column.Cards.Count != 0)
                         {
                             @foreach (var card in Board.Columns[i].Cards)
                             {
                                 
-                                <div class="card list-group-item" >
+                                <div class="card list-group-item" ondragend="@(() => OnDragEnd(card))" >
                                     <p class="card-header fw-bold">
                                         @card.Title
                                     </p>
@@ -51,11 +55,27 @@
     [Parameter]
     public string columnId { get; set; } = "column";
 
+    //информация о перетаскиваемой карточке с задачей
+    public Card DraggableCard { get; set; } = null!;
+
+    //информация о столбце, в который перемещаяется карточка с задачей
+    public Column InsetInColumn { get; set; } = null!;
+
     Board Board => BoardRepository.Board;
 
     protected override void OnAfterRender(bool firstRender)
     {
         JSRuntime?.InvokeVoidAsync("onBlazorReady");
+    }
+
+    public void OnDrop(Column column)
+    {
+        InsetInColumn = column;
+    }
+
+    public void OnDragEnd(Card card)
+    {
+        DraggableCard = card;
     }
 }
 
